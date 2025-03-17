@@ -1,20 +1,31 @@
 import { BsBookmarkStarFill, BsBookmarkStar } from "react-icons/bs";
 import "./BookList.css";
-import books from "../../data/books.json";
+// import books from "../../data/books.json";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteBook, pickFavoriteBook } from "../../store/slices/bookSlice";
 
 const BookList = () => {
-  const handleDeleteBook = (id) => {};
+  const { book } = useSelector((state) => state.book);
+ const dispatch = useDispatch()
+  const handleDeleteBook = (id) => {
+    dispatch(deleteBook(id))
+  };
+  const {favoritBooks , filterByAuthor, filterByTitle } = useSelector((state) => {
+    return 
+  })
 
-  const handleToggleFavorite = (id) => {};
+  const handleToggleFavorite = (id) => {
+    dispatch(pickFavoriteBook(id))
+  };
 
   const filteredBooks = [].filter((book) => {
     const matchesTitle = book.title
       .toLowerCase()
-      .includes(titleFilter.toLowerCase());
+      .includes(filterByTitle.toLowerCase());
     const matchesAuthor = book.author
       .toLowerCase()
-      .includes(authorFilter.toLowerCase());
-    const matchesFavorite = onlyFavoriteFilter ? book.isFavorite : true;
+      .includes(filterByAuthor.toLowerCase());
+    const matchesFavorite = favoritBooks ? book.isFavorite : true;
     return matchesTitle && matchesAuthor && matchesFavorite;
   });
 
@@ -38,15 +49,15 @@ const BookList = () => {
   return (
     <div className="app-block book-list">
       <h2>Book List</h2>
-      {[].length === 0 ? (
+      {filteredBooks.length === 0 ? (
         <p>No books available</p>
       ) : (
         <ul>
-          {books.map((book, i) => (
+          {filteredBooks.map((book, i) => (
             <li key={book.id}>
               <div className="book-info">
-                {++i}. {highlightMatch(book.title, "book")} by{" "}
-                <strong>{highlightMatch(book.author, "book")}</strong> (
+                {++i}. {highlightMatch(book.title, filterByTitle)} by{" "}
+                <strong>{highlightMatch(book.author, filterByAuthor)}</strong> (
                 {book.source})
               </div>
               <div className="book-actions">

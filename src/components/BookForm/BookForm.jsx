@@ -1,16 +1,45 @@
 import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import "./BookForm.css";
+import { useDispatch } from "react-redux";
+import { addBook } from "../../store/slices/bookSlice";
+import { toast } from "react-toastify";
+import books from "../../data/books.json"
 
 const BookForm = () => {
+ const dispatch = useDispatch()
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
 
-  const handleAddRandomBook = () => {};
+  const handleAddRandomBook = () => {
+    const randomIndex = Math.floor(Math.random() * books.length);
+    const randomBook = {
+      ...books[randomIndex],
+      source: 'random' ,
+      isFavorite: false,
+      id: crypto.randomUUID()
+    }
+    dispatch(addBook(randomBook))
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newBook ={
+      title,
+      author,
+      source: 'ruchnoy' ,
+      isFavorite: false,
+      id: crypto.randomUUID()
+    };
+    if(!title.trim().length && author.trim().length ){
+      toast("vedite dannye!!")
+      return
+    }
+    dispatch(addBook(newBook))
+    setTitle('')
+    setAuthor("")
   };
+  
 
   return (
     <div className="app-block book-form">
@@ -35,9 +64,9 @@ const BookForm = () => {
           />
         </div>
         <button type="submit">Add Book</button>
-        {/* <button type="button" onClick={handleAddRandomBook}>
+        <button type="button" onClick={handleAddRandomBook}>
           Add Random
-        </button> */}
+        </button>
 
         <button type="button">
           {false ? (

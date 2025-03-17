@@ -1,30 +1,56 @@
+import { useDispatch, useSelector } from "react-redux";
 import "./Filter.css";
+import { filterSlice } from "../../store/slices/filterSlice";
 
 const Filter = () => {
-  const handleTitleFilterChange = (e) => {};
+  const {favoritBooks , filterByAuthor, filterByTitle } = useSelector((state) => {
+    return 
+  })
+  const dispatch = useDispatch()
+  const handleTitleFilterChange = (e) => {
+    dispatch(filterSlice.actions.titleValuehandler(e.target.value))
+  };
 
-  const handleAuthorFilterChange = (e) => {};
+  const handleAuthorFilterChange = (e) => {
+    dispatch(filterSlice.actions.titleValuehandler(e.target.value))
+  };
 
-  const handleOnlyFavoriteFilterChange = () => {};
+  const handleOnlyFavoriteFilterChange = () => {
+    dispatch(filterSlice.actions.titleValuehandler(e.target.value))
+  };
 
-  const handleResetFilters = () => {};
+  const handleResetFilters = () => {
+    dispatch(filterSlice.actions.resetFilter(e.target.value))
+  };
 
   return (
     <div className="app-block filter">
       <div className="filter-row">
         <div className="filter-group">
-          <input type="text" placeholder="Filter by title..." />
+          <input 
+          type="text" 
+          placeholder="Filter by title..." 
+          onChange={handleTitleFilterChange}
+          value={filterByTitle}
+          />
+         
         </div>
         <div className="filter-group">
-          <input type="text" placeholder="Filter by author..." />
+          <input type="text"
+           placeholder="Filter by author..."
+           onChange={handleAuthorFilterChange}
+           value={filterByAuthor} />
+          
         </div>
         <div className="filter-group">
           <label>
-            <input type="checkbox" />
+            <input type="checkbox"
+            onChange={handleOnlyFavoriteFilterChange}
+            checked={favoritBooks} />
             Only Favorite
           </label>
         </div>
-        <button type="button">Reset Filters</button>
+        <button type="button" onClick={handleResetFilters}>Reset Filters</button>
       </div>
     </div>
   );
