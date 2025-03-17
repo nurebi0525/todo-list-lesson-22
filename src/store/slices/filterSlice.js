@@ -14,8 +14,8 @@ export const filterSlice = createSlice({
             state.filterByTitle = action.payload
         },
         
-        authorValueHandler: (state, action)=> {
-            state.filterByAuthor = action.payload
+        authorValuehandler: (state, action) => { 
+            state.filterByAuthor = action.payload;
         },
 
         onlyFavorites: (state) => {
@@ -31,3 +31,6 @@ export const filterSlice = createSlice({
 
     }
 })
+
+export const { titleValuehandler, authorValuehandler, onlyFavorites, resetFilter } = filterSlice.actions;
+export default filterSlice.reducer;

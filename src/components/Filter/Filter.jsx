@@ -1,26 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Filter.css";
-import { filterSlice } from "../../store/slices/filterSlice";
+import { authorValuehandler, onlyFavorites, resetFilter, titleValuehandler } from "../../store/slices/filterSlice";
+
 
 const Filter = () => {
-  const {favoritBooks , filterByAuthor, filterByTitle } = useSelector((state) => {
-    return 
-  })
+  const {favoritBooks , filterByAuthor, filterByTitle } = useSelector((state) =>  state.filter)
   const dispatch = useDispatch()
   const handleTitleFilterChange = (e) => {
-    dispatch(filterSlice.actions.titleValuehandler(e.target.value))
+    dispatch(titleValuehandler(e.target.value))
   };
 
   const handleAuthorFilterChange = (e) => {
-    dispatch(filterSlice.actions.titleValuehandler(e.target.value))
+    dispatch( authorValuehandler(e.target.value))
   };
 
   const handleOnlyFavoriteFilterChange = () => {
-    dispatch(filterSlice.actions.titleValuehandler(e.target.value))
+    dispatch(onlyFavorites(e.target.value))
   };
 
   const handleResetFilters = () => {
-    dispatch(filterSlice.actions.resetFilter(e.target.value))
+    dispatch(resetFilter(e.target.value))
   };
 
   return (

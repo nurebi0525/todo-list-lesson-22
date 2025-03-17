@@ -10,9 +10,7 @@ const BookList = () => {
   const handleDeleteBook = (id) => {
     dispatch(deleteBook(id))
   };
-  const {favoritBooks , filterByAuthor, filterByTitle } = useSelector((state) => {
-    return 
-  })
+  const {favoritBooks , filterByAuthor, filterByTitle } = useSelector((state) => state)
 
   const handleToggleFavorite = (id) => {
     dispatch(pickFavoriteBook(id))
