@@ -1,22 +1,27 @@
 import { BsBookmarkStarFill, BsBookmarkStar } from "react-icons/bs";
 import "./BookList.css";
-// import books from "../../data/books.json";
+import books from "../../data/books.json";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBook, pickFavoriteBook } from "../../store/slices/bookSlice";
 
 const BookList = () => {
-  const { book } = useSelector((state) => state.book);
+  const {book} = useSelector((state) => state.book);
  const dispatch = useDispatch()
   const handleDeleteBook = (id) => {
     dispatch(deleteBook(id))
   };
-  const {favoritBooks , filterByAuthor, filterByTitle } = useSelector((state) => state)
+  const {favoritBooks , filterByAuthor, filterByTitle } = useSelector((state) => {
+    return state.filter
+  })
+  
 
   const handleToggleFavorite = (id) => {
     dispatch(pickFavoriteBook(id))
   };
 
-  const filteredBooks = [].filter((book) => {
+
+  //  filter of book by title,authour and favorite 
+  const filteredBooks = book.filter((book) => {
     const matchesTitle = book.title
       .toLowerCase()
       .includes(filterByTitle.toLowerCase());
@@ -27,6 +32,8 @@ const BookList = () => {
     return matchesTitle && matchesAuthor && matchesFavorite;
   });
 
+
+  // filter text color yellow 
   const highlightMatch = (text, filter) => {
     if (!filter) return text;
 

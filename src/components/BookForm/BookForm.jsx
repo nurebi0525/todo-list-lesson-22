@@ -11,6 +11,8 @@ const BookForm = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
 
+
+  // push random book from data/books.json when click
   const handleAddRandomBook = () => {
     const randomIndex = Math.floor(Math.random() * books.length);
     const randomBook = {
@@ -31,7 +33,7 @@ const BookForm = () => {
       isFavorite: false,
       id: crypto.randomUUID()
     };
-    if(!title.trim().length && author.trim().length ){
+    if(!title.trim().length || !author.trim().length ){
       toast("vedite dannye!!")
       return
     }
@@ -39,6 +41,9 @@ const BookForm = () => {
     setTitle('')
     setAuthor("")
   };
+
+  
+  
   
 
   return (

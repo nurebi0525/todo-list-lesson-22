@@ -14,11 +14,11 @@ const Filter = () => {
     dispatch( authorValuehandler(e.target.value))
   };
 
-  const handleOnlyFavoriteFilterChange = () => {
+  const handleOnlyFavoriteFilterChange = (e) => {
     dispatch(onlyFavorites(e.target.value))
   };
 
-  const handleResetFilters = () => {
+  const handleResetFilters = (e) => {
     dispatch(resetFilter(e.target.value))
   };
 
